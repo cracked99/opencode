@@ -23,6 +23,7 @@ const (
 	OpenRouterClaude35Haiku  ModelID = "openrouter.claude-3.5-haiku"
 	OpenRouterClaude3Opus    ModelID = "openrouter.claude-3-opus"
 	OpenRouterDeepSeekR1Free ModelID = "openrouter.deepseek-r1-free"
+	OpenRouterDevstralSmall  ModelID = "openrouter.devstral-small-2505"
 )
 
 var OpenRouterModels = map[ModelID]Model{
@@ -272,5 +273,18 @@ var OpenRouterModels = map[ModelID]Model{
 		CostPer1MOutCached: 0,
 		ContextWindow:      163_840,
 		DefaultMaxTokens:   10000,
+	},
+
+	OpenRouterDevstralSmall: {
+		ID:                 OpenRouterDevstralSmall,
+		Name:               "OpenRouter – Devstral Small 2505",
+		Provider:           ProviderOpenRouter,
+		APIModel:           "mistralai/devstral-small-2505",
+		CostPer1MIn:        0.06,
+		CostPer1MInCached:  0.06,
+		CostPer1MOut:       0.12,
+		CostPer1MOutCached: 0.12,
+		ContextWindow:      128_000,
+		DefaultMaxTokens:   5000,
 	},
 }

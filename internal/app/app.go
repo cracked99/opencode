@@ -128,10 +128,13 @@ func (a *App) RunNonInteractive(ctx context.Context, prompt string, outputFormat
 	// Automatically approve all permission requests for this non-interactive session
 	a.Permissions.AutoApproveSession(sess.ID)
 
+	logging.Info("CALLING CODER AGENT RUN", "session_id", sess.ID, "prompt_length", len(prompt))
 	done, err := a.CoderAgent.Run(ctx, sess.ID, prompt)
 	if err != nil {
+		logging.ErrorPersist(fmt.Sprintf("AGENT RUN FAILED: %v", err))
 		return fmt.Errorf("failed to start agent processing stream: %w", err)
 	}
+	logging.Info("AGENT RUN STARTED SUCCESSFULLY")
 
 	result := <-done
 	if result.Error != nil {

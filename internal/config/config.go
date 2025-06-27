@@ -80,20 +80,51 @@ type ShellConfig struct {
 	Args []string `json:"args,omitempty"`
 }
 
+// BehavioralFrameworkConfig defines configuration for the behavioral framework
+type BehavioralFrameworkConfig struct {
+	Enabled                bool                 `json:"enabled"`
+	EnabledEnhancements    map[string]bool      `json:"enabledEnhancements,omitempty"`
+	ComplexityThresholds   ComplexityThresholds `json:"complexityThresholds,omitempty"`
+	PerformanceTargets     PerformanceTargets   `json:"performanceTargets,omitempty"`
+	MaxProcessingTimeMs    int                  `json:"maxProcessingTimeMs,omitempty"`
+	EnablePerformanceTrack bool                 `json:"enablePerformanceTracking"`
+}
+
+// ComplexityThresholds defines thresholds for enhancement selection
+type ComplexityThresholds struct {
+	StandardMax      int `json:"standardMax"`      // 1-3
+	ReflexionMin     int `json:"reflexionMin"`     // 4
+	ReflexionMax     int `json:"reflexionMax"`     // 6
+	ReActMin         int `json:"reactMin"`         // 6
+	ReActMax         int `json:"reactMax"`         // 8
+	MetaPromptingMin int `json:"metaPromptingMin"` // 7
+	CombinedMin      int `json:"combinedMin"`      // 8+
+}
+
+// PerformanceTargets defines performance targets for the framework
+type PerformanceTargets struct {
+	ResponseTimeStandardMs int     `json:"responseTimeStandardMs"` // 60000ms
+	ResponseTimeEnhancedMs int     `json:"responseTimeEnhancedMs"` // 600000ms
+	QualityImprovement     float64 `json:"qualityImprovement"`     // 0.20 (20%)
+	ConsistencyImprovement float64 `json:"consistencyImprovement"` // 0.25 (25%)
+	UserSatisfactionTarget float64 `json:"userSatisfactionTarget"` // 0.85 (85%)
+}
+
 // Config is the main configuration structure for the application.
 type Config struct {
-	Data         Data                              `json:"data"`
-	WorkingDir   string                            `json:"wd,omitempty"`
-	MCPServers   map[string]MCPServer              `json:"mcpServers,omitempty"`
-	Providers    map[models.ModelProvider]Provider `json:"providers,omitempty"`
-	LSP          map[string]LSPConfig              `json:"lsp,omitempty"`
-	Agents       map[AgentName]Agent               `json:"agents,omitempty"`
-	Debug        bool                              `json:"debug,omitempty"`
-	DebugLSP     bool                              `json:"debugLSP,omitempty"`
-	ContextPaths []string                          `json:"contextPaths,omitempty"`
-	TUI          TUIConfig                         `json:"tui"`
-	Shell        ShellConfig                       `json:"shell,omitempty"`
-	AutoCompact  bool                              `json:"autoCompact,omitempty"`
+	Data                Data                              `json:"data"`
+	WorkingDir          string                            `json:"wd,omitempty"`
+	MCPServers          map[string]MCPServer              `json:"mcpServers,omitempty"`
+	Providers           map[models.ModelProvider]Provider `json:"providers,omitempty"`
+	LSP                 map[string]LSPConfig              `json:"lsp,omitempty"`
+	Agents              map[AgentName]Agent               `json:"agents,omitempty"`
+	BehavioralFramework BehavioralFrameworkConfig         `json:"behavioralFramework,omitempty"`
+	Debug               bool                              `json:"debug,omitempty"`
+	DebugLSP            bool                              `json:"debugLSP,omitempty"`
+	ContextPaths        []string                          `json:"contextPaths,omitempty"`
+	TUI                 TUIConfig                         `json:"tui"`
+	Shell               ShellConfig                       `json:"shell,omitempty"`
+	AutoCompact         bool                              `json:"autoCompact,omitempty"`
 }
 
 // Application constants

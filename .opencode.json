@@ -1,5 +1,54 @@
 {
   "$schema": "./opencode-schema.json",
+  "providers": {
+    "openrouter": {
+      "apiKey": "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",
+      "disabled": false
+    }
+  },
+  "agents": {
+    "coder": {
+      "model": "openrouter.devstral-small-2505",
+      "maxTokens": 50000
+    },
+    "task": {
+      "model": "openrouter.devstral-small-2505",
+      "maxTokens": 5000
+    },
+    "title": {
+      "model": "openrouter.devstral-small-2505",
+      "maxTokens": 80
+    }
+  },
+  "behavioralFramework": {
+    "enabled": true,
+    "enabledEnhancements": {
+      "standard": true,
+      "reflexion": true,
+      "react": true,
+      "aci": true,
+      "meta": true,
+      "combined": true
+    },
+    "complexityThresholds": {
+      "standardMax": 3,
+      "reflexionMin": 4,
+      "reflexionMax": 6,
+      "reactMin": 6,
+      "reactMax": 8,
+      "metaPromptingMin": 7,
+      "combinedMin": 8
+    },
+    "performanceTargets": {
+      "responseTimeStandardMs": 60000,
+      "responseTimeEnhancedMs": 600000,
+      "qualityImprovement": 0.20,
+      "consistencyImprovement": 0.25,
+      "userSatisfactionTarget": 0.85
+    },
+    "maxProcessingTimeMs": 900000,
+    "enablePerformanceTracking": true
+  },
   "lsp": {
     "gopls": {
       "command": "gopls"

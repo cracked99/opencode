@@ -27,6 +27,9 @@ func GetAgentPrompt(agentName config.AgentName, provider models.ModelProvider) s
 		basePrompt = "You are a helpful assistant"
 	}
 
+	// Add behavioral framework integration note
+	basePrompt += "\n\n## BEHAVIORAL FRAMEWORK STATUS\nThis agent is enhanced with the Practical Prompt Engineering Framework v1.6.0 for systematic thinking, quality validation, and adaptive optimization."
+
 	if agentName == config.AgentCoder || agentName == config.AgentTask {
 		// Add context from project-specific instruction files if they exist
 		contextContent := getContextFromPaths()
